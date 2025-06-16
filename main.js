@@ -163,7 +163,7 @@ const markerSvgs = {
     active: 'https://dssj.naveedn.dk/wp-content/uploads/2025/05/ActivePin.svg'
 };
 
-// fetch WP posts 
+// fetch WP posts and update beach locations
 async function getPosts() {
     let response = await fetch('https://staging-1749505182.naveedn.dk/wp-json/wp/v2/posts');
     let posts = await response.json();
@@ -181,6 +181,33 @@ async function getPosts() {
         const description = firstParagraph ? firstParagraph.textContent : '';
     }  
     console.log('WordPress data:', wpPosts);
+}
+
+// update beach locations with WP data
+function updateBeachLocations() {
+    // map WP post titles to location IDs
+    const beachMapping = {
+        'Fluepapiret': 'strand-1',
+        'Den Sorte Badestrand': 'strand-2',
+        'Dybbøl Strand': 'strand-3'
+    };
+    
+    // update locations with WP data
+    Object.keys(beachMapping).forEach(postTitle => {
+        const locationId = beachMapping[postTitle];
+        const wpData = wpPosts[postTitle];
+        
+        if (wpData && locations[locationId]) {
+            locations[locationId].name = wpData.title;
+            locations[locationId].description = wpData.description;
+            locations[locationId].image = wpData.image;
+        }
+    });
+    
+    // if map is already initialized, update the markers
+    if (map && Object.keys(markers).length > 0) {
+        updateMarkerPopups();
+    }
 }
 
 // marker icons
