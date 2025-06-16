@@ -210,6 +210,19 @@ function updateBeachLocations() {
     }
 }
 
+// update marker popups with new data
+function updateMarkerPopups() {
+    Object.keys(locations).forEach(locationId => {
+        const location = locations[locationId];
+        const marker = markers[locationId];
+        
+        if (marker && location.type === 'beach') {
+            // update the popup content
+            marker.setPopupContent(createPopupContent(location));
+        }
+    });
+}
+
 // marker icons
 function createCustomIcon(type) {
     const svgPath = markerSvgs[type];
