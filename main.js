@@ -3,6 +3,7 @@ let map;
 let markers = {};
 let scrollEnabled = false;
 let notification;
+let wpPosts = {};
 
 // coordinates
 const locations = {
@@ -10,29 +11,29 @@ const locations = {
     'strand-1': { 
         lat: 54.905699082108804, 
         lng: 9.785943434093719, 
-        name: 'Fluepapiret', 
+        name: '', 
         type: 'beach',
-        description: 'Stranden ligger tæt på byens centrum i retning mod Sønderborg Slot.',
-        image: 'https://gdkfiles.visitdenmark.com/files/462/300980_Fluepapiret_i_Snderborg.jpg',
+        description: '',
+        image: '',
         link: 'https://www.visitsonderjylland.dk/turist/information/fluepapiret-soenderborg-gdk611120'
     },
     
     'strand-2': { 
         lat: 54.89774821313825, 
         lng: 9.803388089622732, 
-        name: 'Den Sorte Badestrand', 
+        name: '', 
         type: 'beach',
-        description: 'Stranden har en badebro og en rampe i vandkanten, der giver personer i kørestol adgang til vandet.',
-        image: 'https://gdkfiles.visitdenmark.com/files/462/292130_Handicap-bro-ved-den-sorte_badestrand-i-Snderborg.jpg',
+        description: '',
+        image: '',
         link: 'https://www.visitsonderjylland.dk/turist/information/den-sorte-badestrand-soenderborg-gdk611388'
     },
     'strand-3': { 
         lat: 54.90602245391619, 
         lng: 9.78045356960696, 
-        name: 'Dybbøl Strand', 
+        name: '', 
         type: 'beach',
-        description: 'God plads for vadefiskeri ud mod Vemmingbund.',
-        image: 'https://gdkfiles.visitdenmark.com/files/462/180338_FV-Dybbl-Strand3.jpg',
+        description: '',
+        image: '',
         link: 'https://www.visitsonderjylland.dk/turist/information/dybboel-strand-gdk1095969'
     },
     
