@@ -179,7 +179,19 @@ async function getPosts() {
         tempDiv.innerHTML = post.content.rendered;
         const firstParagraph = tempDiv.querySelector('p');
         const description = firstParagraph ? firstParagraph.textContent : '';
-    }  
+        
+        // store post data
+        wpPosts[post.title.rendered] = {
+            title: post.title.rendered,
+            description: description,
+            image: imageUrl,
+            content: post.content.rendered
+        };
+    }
+    
+    // update beach locations with WP data
+    updateBeachLocations();
+    
     console.log('WordPress data:', wpPosts);
 }
 
