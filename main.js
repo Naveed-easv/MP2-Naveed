@@ -163,6 +163,26 @@ const markerSvgs = {
     active: 'https://dssj.naveedn.dk/wp-content/uploads/2025/05/ActivePin.svg'
 };
 
+// fetch WP posts 
+async function getPosts() {
+    let response = await fetch('https://staging-1749505182.naveedn.dk/wp-json/wp/v2/posts');
+    let posts = await response.json();
+    
+    for (const post of posts) {
+        // featured image
+        let imageResponse = await fetch(`https://staging-1749505182.naveedn.dk/wp-json/wp/v2/media/${post.featured_media}`);
+        let imageData = await imageResponse.json();
+        let imageUrl = imageData.source_url;
+        
+        // WP paragraph
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = post.content.rendered;
+        const firstParagraph = tempDiv.querySelector('p');
+        const description = firstParagraph ? firstParagraph.textContent : '';
+    }  
+    console.log('WordPress data:', wpPosts);
+}
+
 // marker icons
 function createCustomIcon(type) {
     const svgPath = markerSvgs[type];
@@ -186,8 +206,7 @@ function createPopupContent(location) {
                  height: 150px; 
                  object-fit: cover; 
                  border-radius: 8px; 
-                 margin-bottom: 12px;"
-                 onerror="this.style.display='none'">
+                 margin-bottom: 12px;">
             <h3 style="
                 margin: 0 0 8px 0; 
                 font-size: 18px; 
@@ -251,7 +270,9 @@ function hideScrollNotification() {
 
 // https://leafletjs.com/examples/quick-start/
 // initialize map
-function initMap() {
+async function initMap() {
+    await getPosts();
+    
     // center map on Sønderborg
     map = L.map('leaflet-map', {
         scrollWheelZoom: false, // disable scroll zoom by default
