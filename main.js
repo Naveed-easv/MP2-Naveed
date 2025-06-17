@@ -163,7 +163,7 @@ const markerSvgs = {
     active: 'https://dssj.naveedn.dk/wp-content/uploads/2025/05/ActivePin.svg'
 };
 
-// fetch WP posts and update beach locations
+// fetch WP posts
 async function getPosts() {
     let response = await fetch('https://staging-1749505182.naveedn.dk/wp-json/wp/v2/posts');
     let posts = await response.json();
@@ -174,11 +174,10 @@ async function getPosts() {
         let imageData = await imageResponse.json();
         let imageUrl = imageData.source_url;
         
-        // WP paragraph
+        // paragraph
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = post.content.rendered;
-        const firstParagraph = tempDiv.querySelector('p');
-        const description = firstParagraph ? firstParagraph.textContent : '';
+        const description = tempDiv.querySelector('p').textContent;
         
         // store post data
         wpPosts[post.title.rendered] = {
